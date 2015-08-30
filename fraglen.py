@@ -12,8 +12,8 @@ import subprocess
 
 # global regular expressions
 
-readKeyRe = re.compile('(.*)\s[1-2](.*)')
-readNumRe = re.compile('.*\s([1-2]).*')
+readKeyRe = re.compile('(.*)[\s\/][1-2](.*)')
+readNumRe = re.compile('.*[\s\/]([1-2]).*')
 
 # sort bam file with pysam.sort function
 # the bam file should be sorted by qname
