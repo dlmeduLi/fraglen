@@ -45,8 +45,9 @@ def FormatPosList(posList):
 
 
 ##### write fragement length #####
-def WriteFragLen(frg, fragType,chrname, pos, fragLen, outFile):
-	outFile.write('%s\t%s\t%s\t%15ld\t%6d\n' % (frg, fragType, chrname, pos, fragLen))
+def WriteFragLen(fragType,chrname, pos, fragLen, outFile):
+#	outFile.write('%s\t%s\t%s\t%15ld\t%6d\n' % (frg, fragType, chrname, pos, fragLen))
+	outFile.write('%s\t%s\t%15ld\t%6d\n' % (fragType, chrname, pos, fragLen))
 
 ##### get fragement length from SE resd #####
 def FragOfSingleReads(dictSingle, bamFile, outFile):
@@ -57,7 +58,7 @@ def FragOfSingleReads(dictSingle, bamFile, outFile):
 		readPos = read.pos
 		tag = read.qname
 		chrname = bamFile.getrname(read.rname)
-		WriteFragLen(tag.split()[0], 'S', chrname, readPos, fragLen, outFile)
+		WriteFragLen('S', chrname, readPos, fragLen, outFile)
 
 ##### get fragement length from PE resd #####
 def FragOfPairedReads(dictPaired, bamFile, outFile):
@@ -73,7 +74,7 @@ def FragOfPairedReads(dictPaired, bamFile, outFile):
 		fragPos = pair[0].pos
 		fragLen = pair[1].pos + readSeqLen2 - fragPos
 				
-		WriteFragLen(pair[0].qname.split()[0], 'P', chrname, fragPos, fragLen, outFile)
+		WriteFragLen('P', chrname, fragPos, fragLen, outFile)
 
 def main():
 
@@ -125,7 +126,7 @@ def main():
 	except IOError:
 		print('error: write to output file failed!')
 		sys.exit(-1)
-	outFile.write('fragmentname\ttype\tchr\tpos\tlen\n')
+	outFile.write('type\tchr\tpos\tlen\n')
 
 	# analyse algnments
 
